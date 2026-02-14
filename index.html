@@ -64,7 +64,7 @@ button {
     margin-left: 20px;
 }
 
-/* SERCE WYŻEJ */
+/* SERCE */
 #heartContainer {
     position: fixed;
     top: 0%;
@@ -74,7 +74,6 @@ button {
     z-index: 3;
 }
 
-/* DUŻE SERCE */
 #heart {
     font-size: 180px;
     color: red;
@@ -109,7 +108,6 @@ button {
     </div>
 </div>
 
-<!-- SERCE Z NAPISEM -->
 <div id="heartContainer">
     <div id="heart">
         ❤️
@@ -117,7 +115,10 @@ button {
     </div>
 </div>
 
-<audio id="bgMusic" src="muzyka.mp3" loop></audio>
+<!-- AUDIO (wersja stabilna pod GitHub) -->
+<audio id="bgMusic" preload="auto">
+    <source src="./muzyka.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 const yesBtn = document.getElementById("yes");
@@ -143,7 +144,13 @@ yesBtn.addEventListener("click", function() {
     slideshow.style.display = "block";
     heartContainer.style.display = "block";
     startSlideshow();
-    music.play();
+
+    // PEWNE odpalenie muzyki
+    music.currentTime = 0;
+    music.muted = false;
+    music.play().catch(function(error) {
+        console.log("Autoplay zablokowany:", error);
+    });
 });
 
 const images = [
